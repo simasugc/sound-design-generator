@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sound Design Generator</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --site-bg: #102d26; /* Muted green/blue background */
+      --header-bg: #1db954; /* Spotify-like green, slightly lime */
+      --button-bg: #1db954; /* Same green for button */
+    }
+  </style>
+</head>
+<body class="bg-[var(--site-bg)] text-white">
+
+  <!-- Header -->
+  <header class="text-center py-4 bg-[var(--header-bg)]">
+    <h1 class="text-2xl font-bold">Sound Design Generator</h1>
+    <p class="text-lg uppercase">FOR VIDEOS</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex flex-col items-center justify-center min-h-screen">
+    <!-- Upload Button -->
+    <button class="bg-[var(--button-bg)] text-white px-10 py-4 rounded-lg text-lg font-bold hover:bg-green-600">
+      Upload Video
+    </button>
+  </main>
+
+</body>
+</html>
+
