@@ -5,38 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Select Tone</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,400&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --site-bg: #102d26; /* Muted green/blue background */
+      --header-bg: #1db954; /* Spotify-like green, slightly lime */
+      --button-bg: #1db954; /* Same green for button */
+    }
+    h1 {
+    font-family: 'Orbitron', sans-serif;
+  }
+  p, nav, button {
+    font-family: 'Merriweather', serif;
+  }
+  html {
+  overflow-y: scroll;
+}
+  </style>
 </head>
-<body style="background-color: #102d26;" class="text-white min-h-screen flex flex-col items-center justify-center">
-  <header class="text-center py-4 bg-green-600 w-full">
-    <h1 class="text-2xl font-bold">Sound Design Generator</h1>
-    <p class="text-lg uppercase">Select a Tone</p>
-  </header>
+<body style="margin: 0; padding: 0; background-color: #102d26;" class="text-white min-h-screen flex flex-col items-center justify-center">
+  
+    <!-- Header -->
+    <header class="text-center py-4 bg-[#1db954] w-full">
+        <h1 class="text-3xl md:text-3.5xl font-bold" style="font-family: 'Orbitron', sans-serif;">Sound Design Generator</h1>
+        <p class="text-base font-bold mt-1" style="font-family: 'Merriweather', serif; color: #102d26;">for videos</p>
+      </header>
 
-  <main class="flex-grow flex items-center justify-center">
+    <!-- Navigation -->
+  <nav class="text-center text-[#1db954] text-sm mt-2 mb-4" style="font-family: 'Merriweather', serif;">
+    <a href="index.html" class="hover:underline">home</a> |
+    <a href="how-it-works.html" class="hover:underline">how it works</a> |
+    <a href="report-issue.html" class="hover:underline">report an issue</a> |
+    <a href="support-us.html" class="hover:underline">support us</a>
+  </nav>  
+
+  <!-- Main Content -->
+  <main class="flex-grow flex flex-col items-center justify-start mt-10">
     <div class="grid grid-cols-2 gap-4">
       <!-- Tone Buttons -->
-      <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-lg">
+      <button class="bg-blue-800 hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
         Dark/Gloomy
       </button>
-      <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-6 rounded-lg">
+      <button class="bg-red-700 hover:bg-red-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
         Inspirational/Dramatic
       </button>
-      <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg">
+      <button class="bg-green-800 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
         Motivational/Active
       </button>
-      <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-4 px-6 rounded-lg">
+      <button class="bg-yellow-700 hover:bg-yellow-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
         Ironic/Comedic
       </button>
-      <button class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-4 px-6 rounded-lg">
+      <button class="bg-purple-800 hover:bg-purple-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
         Romantic/Tender
       </button>
-      <button class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-6 rounded-lg">
+      <button class="bg-pink-800 hover:bg-pink-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
         Thrilling/Suspenseful
       </button>
-      <button class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-4 px-6 rounded-lg">
+      <button class="bg-teal-800 hover:bg-teal-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
         Relaxed/Chill
       </button>
-      <button class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-4 px-6 rounded-lg">
+      <button class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
         Neutral
       </button>
     </div>
