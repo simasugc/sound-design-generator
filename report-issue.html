@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDG | Report Issue</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      overflow-y: scroll; /* Ensures consistent scrollbars on all pages */
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,400&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #102d26;" class="text-white min-h-screen flex flex-col items-center justify-start">
+  <!-- Header -->
+  <header class="text-center py-4 bg-[#1db954] w-full">
+    <h1 class="text-2xl font-bold" style="font-family: 'Orbitron', sans-serif;">Sound Design Generator</h1>
+    <p class="text-base font-bold mt-1" style="font-family: 'Merriweather', serif; color: #102d26;">for videos</p>
+  </header>
+
+  <!-- Menu -->
+  <nav class="text-center text-xs mt-2 mb-4" style="font-family: 'Merriweather', serif;">
+    <a href="index.html" class="text-[#abefc3] hover:underline">home</a> |
+    <a href="how-it-works.html" class="text-[#abefc3] hover:underline">how it works</a> |
+    <a href="report-issue.html" class="text-white hover:underline">report issue</a> |
+    <a href="support-us.html" class="text-[#abefc3] hover:underline">support us</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex flex-col items-center px-4 mt-4">
+    <!-- Form -->
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="flex flex-col gap-4 w-full max-w-2xl">
+      <!-- Name Input -->
+      <label for="name" class="text-[#1db954] text-lg font-bold text-center" style="font-family: 'Merriweather', serif;">name</label>
+      <input type="text" id="name" name="name" required 
+        class="w-full p-2 mb-4 bg-[#102d26] border-2 border-[#abefc3] focus:outline-none focus:border-[#abefc3]"
+        placeholder="your name here">
+
+      <!-- Email Input -->
+      <label for="email" class="text-[#1db954] text-lg font-bold text-center" style="font-family: 'Merriweather', serif;">email</label>
+      <input type="email" id="email" name="email" required 
+        class="w-full p-2 mb-4 bg-[#102d26] border-2 border-[#abefc3] focus:outline-none focus:border-[#abefc3]"
+        placeholder="your email here">
+
+      <!-- Feedback/Issue Text Area -->
+      <label for="message" class="text-[#1db954] text-lg font-bold text-center" style="font-family: 'Merriweather', serif;">describe your issue or feedback</label>
+      <textarea id="message" name="message" rows="5" required 
+        class="w-full p-2 mb-4 bg-[#102d26] border-2 border-[#abefc3] focus:outline-none focus:border-[#abefc3]"
+        placeholder="explain here"></textarea>
+
+      <!-- Submit Button -->
+      <button type="submit" 
+        class="text-[#1db954] text-lg font-bold underline hover:text-[#abefc3] hover:no-underline text-center" 
+        style="font-family: 'Orbitron', sans-serif;">
+        SUBMIT
+      </button>
+    </form>
+  </main>
+</body>
+</html>
