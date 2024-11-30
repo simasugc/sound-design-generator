@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDG | Support Us</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      overflow-y: scroll; /* Ensures consistent scrollbars on all pages */
+    }
+    footer {
+      width: 100vw; /* Ensures full-width footer */
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,400&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #102d26;" class="text-white min-h-screen flex flex-col items-center justify-start">
+  <!-- Header -->
+  <header class="text-center py-4 bg-[#1db954] w-full">
+    <h1 class="text-2xl font-bold" style="font-family: 'Orbitron', sans-serif;">Sound Design Generator</h1>
+    <p class="text-base font-bold mt-1" style="font-family: 'Merriweather', serif; color: #102d26;">for videos</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="text-center text-xs mt-2 mb-4" style="font-family: 'Merriweather', serif;">
+    <a href="index.html" class="text-[#abefc3] hover:underline">home</a> |
+    <a href="how-it-works.html" class="text-[#abefc3] hover:underline">how it works</a> |
+    <a href="report-issue.html" class="text-[#abefc3] hover:underline">report issue</a> |
+    <a href="support-us.html" class="text-white hover:underline">support us</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex flex-col items-center w-full px-4 mt-4">
+    <div class="flex flex-col items-center bg-[#1a2f2b] p-6 rounded-md border border-[#abefc3] w-full max-w-lg">
+      <h2 class="text-[#1db954] text-lg font-bold mb-4" style="font-family: 'Merriweather', serif;">Support Us with PayPal</h2>
+      <!-- PayPal Button -->
+      <div id="paypal-container-TGXCQRPBP378L"></div>
+      <script src="https://www.paypal.com/sdk/js?client-id=BAAdpKSgl6_bOk93zcEUbFt2H-2eKnf6eGnhWr_82ypA_0g9J0al11Ryy_wKX-Yzq8yz6RgfqWXcdX00Ek&components=hosted-buttons&enable-funding=venmo&currency=USD"></script>
+      <script>
+        paypal.HostedButtons({
+          hostedButtonId: "TGXCQRPBP378L",
+        }).render("#paypal-container-TGXCQRPBP378L");
+      </script>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-black text-[#abefc3] w-full py-4 text-center mt-10">
+    <!-- Footer Navigation -->
+    <nav class="text-xs mb-2" style="font-family: 'Merriweather', serif;">
+      <a href="index.html" class="hover:underline">home</a> |
+      <a href="how-it-works.html" class="hover:underline">how it works</a> |
+      <a href="report-issue.html" class="hover:underline">report issue</a> |
+      <a href="support-us.html" class="hover:underline">support us</a>
+    </nav>
+    <p class="text-white text-sm font-bold py-2" style="font-family: 'Orbitron', sans-serif;">
+      ALWAYS FREE & UNLIMITED
+    </p>
+    <p class="text-[#1db954] text-xs mt-2" style="font-family: 'Merriweather', serif;">
+      © 2025 Sound Design Generator. All rights reserved.
+    </p>
+  </footer>
+</body>
+</html>
