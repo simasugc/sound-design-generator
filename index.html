@@ -6,6 +6,7 @@
   <title>Sound Design Generator | Home</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./style.css">
   <style>
     :root {
       --site-bg: #0c1e19; /* Muted green/blue background */
@@ -13,23 +14,35 @@
       --button-bg: #1db954; /* Same green for button */
     }
     h1 {
-    font-family: 'Orbitron', sans-serif;
-  }
-  p, nav, button {
-    font-family: 'Merriweather', serif;
-  }
-  html {
-  overflow-y: scroll;
-}
-  </style>
-  <style>
-    html {
-      overflow-y: scroll; /* Ensures consistent scrollbars on all pages */
+      font-family: 'Orbitron', sans-serif;
+    }
+    p, nav, button {
+      font-family: 'Merriweather', serif;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #102d26;
+      height: 100%; /* Ensure body takes full height */
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex-grow: 1; /* Push footer to bottom if content is short */
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 150px; /* Adjust main content positioning */
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,400&family=Orbitron:wght@500&display=swap" rel="stylesheet">
 </head>
-<body style="margin: 0; padding: 0; background-color: #102d26;" class="text-white min-h-screen flex flex-col items-center justify-center">
+<body class="text-white">
 
   <!-- Header -->
   <header class="text-center py-4 bg-[#1db954] w-full">
@@ -46,16 +59,89 @@
   </nav>    
 
   <!-- Main Content -->
-  <main class="flex flex-col items-center justify-start min-h-screen mt-10">
-    <button class="bg-green-500 text-white px-10 py-4 rounded-lg text-lg font-bold hover:bg-green-600 mt-10" style="font-family: 'Merriweather', serif;">
+  <main>
+    <!-- Hidden File Input -->
+    <input 
+      type="file" 
+      id="videoUpload" 
+      accept="video/*" 
+      style="display: none;" 
+      onchange="handleFileUpload(this)"
+    />
+
+    <!-- Styled Upload Button -->
+    <button 
+      class="bg-green-500 text-white px-10 py-4 rounded-lg text-lg font-bold hover:bg-green-600"
+      style="font-family: 'Merriweather', serif;"
+      onclick="document.getElementById('videoUpload').click()"
+    >
       Upload Video
     </button>
   </main>
+
   <script>
-    document.querySelector('button').addEventListener('click', () => {
-      // Use "./tones.html" to specify the correct relative path
-      window.location.href = './tones.html';
-    });
+    function handleFileUpload(input) {
+      const file = input.files[0];
+      if (!file) {
+        alert("Please select a file.");
+        return;
+      }
+
+      if (!file.type.startsWith("video/")) {
+        alert("Please upload a valid video file.");
+        return;
+      }
+
+      const maxFileSize = 100 * 1024 * 1024; 
+      if (file.size > maxFileSize) {
+        alert("File is too large. Maximum size allowed is 100MB.");
+        return;
+      }
+
+      const videoElement = document.createElement("video");
+      videoElement.preload = "metadata";
+      videoElement.src = URL.createObjectURL(file);
+
+      videoElement.onloadedmetadata = () => {
+        URL.revokeObjectURL(videoElement.src);
+        const duration = videoElement.duration;
+
+        if (duration > 180) {
+          alert("Video is too long. Maximum duration allowed is 3 minutes.");
+          return;
+        }
+
+        const blobUrl = URL.createObjectURL(file);
+        sessionStorage.setItem("uploadedVideo", JSON.stringify({ 
+          name: file.name, 
+          url: blobUrl,
+          size: file.size      
+        }));
+
+        window.location.href = "./tones.html";
+      };
+
+      videoElement.onerror = () => {
+        alert("Failed to load video metadata. Please upload a valid video file.");
+      };
+    }
   </script>
+
+  <!-- Footer -->
+  <footer class="bg-black text-[#abefc3] w-full py-4 text-center">
+    <nav class="text-xs mb-2" style="font-family: 'Merriweather', serif;">
+      <a href="index.html" class="hover:underline">home</a> |
+      <a href="how-it-works.html" class="hover:underline">how it works</a> |
+      <a href="report-issue.html" class="hover:underline">report issue</a> |
+      <a href="support-us.html" class="hover:underline">support us</a>
+    </nav>
+    <p class="text-white text-sm font-bold py-2" style="font-family: 'Orbitron', sans-serif;">
+      ALWAYS FREE & UNLIMITED
+    </p>
+    <p class="text-[#1db954] text-xs mt-2" style="font-family: 'Merriweather', serif;">
+      © 2025 Sound Design Generator. All rights reserved.
+    </p>
+  </footer>
+
 </body>
 </html>

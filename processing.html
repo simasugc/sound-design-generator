@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDG | Processing</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+  <style>
+    html {
+      overflow-y: scroll;
+    }
+
+    footer {
+      width: 100vw;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      max-width: 500px;
+      background-color: #1a2f2b;
+      border: 2px solid #abefc3;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 30px;
+      margin: 20px auto;
+    }
+
+    .progress-bar-fill {
+      width: 0;
+      height: 100%;
+      background-color: #1db954;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,400&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #102d26;" class="text-white flex flex-col items-center">
+  <!-- Header -->
+  <header class="text-center py-4 bg-[#1db954] w-full">
+    <h1 class="text-2xl font-bold" style="font-family: 'Orbitron', sans-serif;">Sound Design Generator</h1>
+    <p class="text-base font-bold mt-1" style="font-family: 'Merriweather', serif; color: #102d26;">for videos</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="text-center text-[#abefc3] text-xs mt-2 mb-4" style="font-family: 'Merriweather', serif;">
+      <a href="index.html" class="hover:underline">home</a> |
+      <a href="how-it-works.html" class="hover:underline">how it works</a> |
+      <a href="report-issue.html" class="hover:underline">report issue</a> |
+      <a href="support-us.html" class="hover:underline">support us</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="text-center w-full px-4 mt-4 flex-grow">
+    <h2 class="text-[#1db954] text-lg font-bold mb-6" style="font-family: 'Merriweather', serif;">processing your video</h2>
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill" id="progress-bar-fill"></div>
+    </div>
+    <p id="progress-percentage" class="text-[#abefc3] text-lg mt-4" style="font-family: 'Merriweather', serif;">0%</p>
+  </main>
+
+  <script>
+const { createFFmpeg, fetchFile } = FFmpeg;
+const ffmpeg = createFFmpeg({ log: true });
+
+async function mergeAudioAndVideo(videoBlobUrl, audioFilePath) {
+  try {
+    console.log("Step 1: Initializing FFmpeg...");
+    await ffmpeg.load();
+    console.log("FFmpeg successfully loaded.");
+
+    // Fetch video and audio files
+    console.log("Step 2: Fetching video and audio files...");
+    const videoFile = await fetchFile(videoBlobUrl);
+    const audioFile = await fetchFile(audioFilePath);
+
+    console.log("Fetched video file:", videoFile);
+    console.log("Fetched audio file:", audioFile);
+
+    // Write files into FFmpeg virtual filesystem
+    console.log("Step 3: Writing files to FFmpeg virtual filesystem...");
+    ffmpeg.FS('writeFile', 'video.mp4', videoFile);
+    ffmpeg.FS('writeFile', 'audio.mp3', audioFile);
+    console.log("Files successfully written.");
+
+    // Run FFmpeg command to merge files
+    console.log("Step 4: Running FFmpeg merge command...");
+    await ffmpeg.run('-i', 'video.mp4', '-i', 'audio.mp3', '-c:v', 'copy', '-c:a', 'aac', '-shortest', 'output.mp4');
+    console.log("FFmpeg command executed successfully.");
+
+    // Retrieve merged output file
+    console.log("Step 5: Retrieving merged output file...");
+    const output = ffmpeg.FS('readFile', 'output.mp4');
+    const mergedBlob = new Blob([output.buffer], { type: 'video/mp4' });
+    const mergedUrl = URL.createObjectURL(mergedBlob);
+
+    console.log("Step 6: Merged video URL created:", mergedUrl);
+
+    // Save merged video URL to sessionStorage
+    sessionStorage.setItem('mergedVideo', mergedUrl);
+
+    // Redirect to the finished page
+    console.log("Step 7: Redirecting to finished.html...");
+    window.location.href = "./finished.html";
+  } catch (error) {
+    console.error("Error during merge process:", error);
+    alert("An error occurred while processing the video.");
+  }
+}
+
+// Retrieve stored video and tone data
+const uploadedVideoData = JSON.parse(sessionStorage.getItem("uploadedVideo"));
+const selectedTone = sessionStorage.getItem("selectedTone");
+const audioFilePath = './assets/audio/placeholder-audio.mp3';
+
+if (!uploadedVideoData || !selectedTone) {
+  alert("Missing video or tone selection. Please start again.");
+  window.location.href = "./index.html";
+} else {
+  console.log("Uploaded Video Data:", uploadedVideoData);
+  console.log("Selected Tone:", selectedTone);
+}
+
+const videoBlobUrl = uploadedVideoData.url;
+
+// Progress simulation
+console.log("Starting progress simulation...");
+console.log("Video Blob URL:", videoBlobUrl);
+console.log("Audio File Path:", audioFilePath);
+
+let progress = 0;
+const progressBarFill = document.getElementById("progress-bar-fill");
+const progressPercentage = document.getElementById("progress-percentage");
+
+const interval = setInterval(() => {
+  progress += 12.5; // Increment progress
+  console.log(`Progress: ${progress}%`); // Log progress updates
+  progressBarFill.style.width = `${progress}%`;
+  progressPercentage.textContent = `${Math.round(progress)}%`;
+
+  if (progress >= 100) {
+    clearInterval(interval);
+    console.log("Progress completed. Merging video and audio...");
+    mergeAudioAndVideo(videoBlobUrl, audioFilePath);
+  }
+}, 1000);
+
+  </script>
+
+  <!-- Footer -->
+  <footer class="bg-black text-[#abefc3] w-full py-4 text-center">
+    <nav class="text-xs mb-2" style="font-family: 'Merriweather', serif;">
+      <a href="index.html" class="hover:underline">home</a> |
+      <a href="how-it-works.html" class="hover:underline">how it works</a> |
+      <a href="report-issue.html" class="hover:underline">report issue</a> |
+      <a href="support-us.html" class="hover:underline">support us</a>
+    </nav>
+    <p class="text-white text-sm font-bold py-2" style="font-family: 'Orbitron', sans-serif;">
+      ALWAYS FREE & UNLIMITED
+    </p>
+    <p class="text-[#1db954] text-xs mt-2" style="font-family: 'Merriweather', serif;">
+      © 2025 Sound Design Generator. All rights reserved.
+    </p>
+  </footer>
+</body>
+</html>

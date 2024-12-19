@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SDG | Pick a Tone</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,400&family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -46,44 +47,84 @@
 
   <!-- Main Content -->
   <main class="flex-grow flex flex-col items-center justify-start mt-10">
+    <h2 class="text-[#1db954] text-lg font-bold mb-6" style="font-family: 'Merriweather', serif;">
+      pick a mood
+    </h2>
     <div class="grid grid-cols-2 gap-4">
       <!-- Tone Buttons -->
       <button class="bg-blue-800 hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
-        Dark/Gloomy
+        Cozy
       </button>
       <button class="bg-red-700 hover:bg-red-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
-        Inspirational/Dramatic
+        Dramatic
       </button>
       <button class="bg-green-800 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
-        Motivational/Active
+        Motivational
       </button>
       <button class="bg-yellow-700 hover:bg-yellow-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
-        Ironic/Comedic
+        Ironic
       </button>
       <button class="bg-purple-800 hover:bg-purple-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
-        Romantic/Tender
+        Romantic
       </button>
       <button class="bg-pink-800 hover:bg-pink-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
-        Thrilling/Suspenseful
+        Thrilling
       </button>
       <button class="bg-teal-800 hover:bg-teal-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
-        Relaxed/Chill
+        Chill AF
       </button>
       <button class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-4 px-6 rounded-lg" style="font-family: 'Merriweather', serif;">
-        Neutral
+        Chronically Online
       </button>
     </div>
   </main>
-  <script>
-    document.querySelectorAll('button').forEach((button) => {
-      button.addEventListener('click', () => {
-        const selectedTone = button.textContent.trim();
-        alert(`You selected: ${selectedTone}`);
-        // Navigate to the next screen (e.g., processing.html)
-        // window.location.href = 'processing.html';
-      });
+
+<script>
+  // Debug: Check if uploaded video exists
+  const uploadedVideo = sessionStorage.getItem("uploadedVideo");
+  if (!uploadedVideo) {
+    alert("Uploaded video data is missing. Please start again.");
+    window.location.href = "./index.html";
+  }
+
+  // Tone selection
+  document.querySelectorAll('button').forEach((button) => {
+    button.addEventListener('click', () => {
+      const selectedTone = button.textContent.trim();
+      sessionStorage.setItem("selectedTone", selectedTone);
+
+      // Debug: Confirm tone selection
+      console.log("Selected Tone:", selectedTone);
+
+      // Navigate to the processing page
+      window.location.href = './processing.html';
     });
-  </script>
+  });
+</script>
   
+<!-- Padding Before Footer -->
+<div style="background-color: #102d26; height: 100px;"></div>
+
+<!-- Footer -->
+<footer class="bg-black text-[#abefc3] w-full py-4 text-center">
+  <!-- Footer Navigation -->
+  <nav class="text-xs mb-2" style="font-family: 'Merriweather', serif;">
+    <a href="index.html" class="hover:underline">home</a> |
+    <a href="how-it-works.html" class="hover:underline">how it works</a> |
+    <a href="report-issue.html" class="hover:underline">report issue</a> |
+    <a href="support-us.html" class="hover:underline">support us</a>
+  </nav>
+
+  <!-- Always Free & Unlimited -->
+  <p class="text-white text-sm font-bold py-2" style="font-family: 'Orbitron', sans-serif;">
+    ALWAYS FREE & UNLIMITED
+  </p>
+
+  <!-- Copyright Notice -->
+  <p class="text-[#1db954] text-xs mt-2" style="font-family: 'Merriweather', serif;">
+    © 2025 Sound Design Generator. All rights reserved.
+  </p>
+</footer>
+
 </body>
 </html>

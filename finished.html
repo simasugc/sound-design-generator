@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDG | Finished</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      overflow-y: scroll; /* Ensures consistent scrollbars */
+    }
+
+    footer {
+      width: 100vw; /* Full-width footer */
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+    }
+
+    .button {
+      font-family: 'Merriweather', serif;
+      font-weight: bold;
+      padding: 16px 32px;
+      text-align: center;
+      border-radius: 6px;
+      display: block;
+      width: 200px;
+      margin: 10px auto;
+      cursor: pointer;
+    }
+
+    .preview-button {
+      background-color: black;
+      color: #abefc3; /* Light green text */
+    }
+
+    .download-button {
+      background-color: #1db954; /* Green */
+      color: white;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,400&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #102d26;" class="text-white flex flex-col items-center">
+  <!-- Header -->
+  <header class="text-center py-4 bg-[#1db954] w-full">
+    <h1 class="text-2xl font-bold" style="font-family: 'Orbitron', sans-serif;">Sound Design Generator</h1>
+    <p class="text-base font-bold mt-1" style="font-family: 'Merriweather', serif; color: #102d26;">for videos</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="text-center text-[#abefc3] text-xs mt-2 mb-4" style="font-family: 'Merriweather', serif;">
+    <a href="index.html" class="hover:underline">home</a> |
+    <a href="how-it-works.html" class="hover:underline">how it works</a> |
+    <a href="report-issue.html" class="hover:underline">report issue</a> |
+    <a href="support-us.html" class="hover:underline">support us</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex flex-col items-center justify-start flex-grow mt-10">
+    <h2 id="readyHeader" class="text-[#1db954] text-lg font-bold mb-6" style="font-family: 'Merriweather', serif;">your video is ready!</h2>
+    <a href="preview.html" class="button preview-button">Preview</a>
+    <a href="your_video_file.mp4" download class="button download-button" style="margin-top: 20px;">
+      Download
+    </a>
+  </main>
+
+  <script>
+    // Retrieve merged video and tone information
+    const mergedVideo = JSON.parse(sessionStorage.getItem("mergedVideo"));
+
+    if (!mergedVideo) {
+      alert("No processed video data found. Please start again.");
+      window.location.href = "./index.html";
+    } else {
+      console.log("Merged video data:", mergedVideo);
+      const tone = mergedVideo.tone || "default"; // Fallback in case tone is missing
+      document.getElementById("readyHeader").textContent = `your ${tone.toLowerCase()} video is ready!`;
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer class="bg-black text-[#abefc3] w-full py-4 text-center">
+    <nav class="text-xs mb-2" style="font-family: 'Merriweather', serif;">
+      <a href="index.html" class="hover:underline">home</a> |
+      <a href="how-it-works.html" class="hover:underline">how it works</a> |
+      <a href="report-issue.html" class="hover:underline">report issue</a> |
+      <a href="support-us.html" class="hover:underline">support us</a>
+    </nav>
+    <p class="text-white text-sm font-bold py-2" style="font-family: 'Orbitron', sans-serif;">
+      ALWAYS FREE & UNLIMITED
+    </p>
+    <p class="text-[#1db954] text-xs mt-2" style="font-family: 'Merriweather', serif;">
+      © 2025 Sound Design Generator. All rights reserved.
+    </p>
+  </footer>
+</body>
+</html>
