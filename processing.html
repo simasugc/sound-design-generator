@@ -70,48 +70,48 @@ const { createFFmpeg, fetchFile } = FFmpeg;
 const ffmpeg = createFFmpeg({ log: true });
 
 async function mergeAudioAndVideo(videoBlobUrl, audioFilePath) {
-  try {
-    console.log("Step 1: Initializing FFmpeg...");
-    await ffmpeg.load();
-    console.log("FFmpeg successfully loaded.");
+    const { createFFmpeg, fetchFile } = FFmpeg;
+    const ffmpeg = createFFmpeg({ log: true });
 
-    // Fetch video and audio files
-    console.log("Step 2: Fetching video and audio files...");
-    const videoFile = await fetchFile(videoBlobUrl);
-    const audioFile = await fetchFile(audioFilePath);
+    try {
+        console.log("Step 1: Initializing FFmpeg...");
+        await ffmpeg.load();
+        console.log("FFmpeg successfully loaded.");
 
-    console.log("Fetched video file:", videoFile);
-    console.log("Fetched audio file:", audioFile);
+        // Fetch video and audio files
+        console.log("Step 2: Fetching video and audio files...");
+        const videoFile = await fetchFile(videoBlobUrl);
+        const audioFile = await fetchFile(audioFilePath);
 
-    // Write files into FFmpeg virtual filesystem
-    console.log("Step 3: Writing files to FFmpeg virtual filesystem...");
-    ffmpeg.FS('writeFile', 'video.mp4', videoFile);
-    ffmpeg.FS('writeFile', 'audio.mp3', audioFile);
-    console.log("Files successfully written.");
+        console.log("Fetched video file and audio file successfully");
 
-    // Run FFmpeg command to merge files
-    console.log("Step 4: Running FFmpeg merge command...");
-    await ffmpeg.run('-i', 'video.mp4', '-i', 'audio.mp3', '-c:v', 'copy', '-c:a', 'aac', '-shortest', 'output.mp4');
-    console.log("FFmpeg command executed successfully.");
+        // Write files into FFmpeg virtual filesystem
+        console.log("Step 3: Writing files to FFmpeg virtual filesystem...");
+        ffmpeg.FS('writeFile', 'input_video.mp4', videoFile);
+        ffmpeg.FS('writeFile', 'input_audio.mp3', audioFile);
 
-    // Retrieve merged output file
-    console.log("Step 5: Retrieving merged output file...");
-    const output = ffmpeg.FS('readFile', 'output.mp4');
-    const mergedBlob = new Blob([output.buffer], { type: 'video/mp4' });
-    const mergedUrl = URL.createObjectURL(mergedBlob);
+        // Run FFmpeg command to merge video and audio
+        console.log("Step 4: Running FFmpeg merge command...");
+        await ffmpeg.run('-i', 'input_video.mp4', '-i', 'input_audio.mp3', '-c:v', 'copy', '-c:a', 'aac', '-shortest', 'output.mp4');
 
-    console.log("Step 6: Merged video URL created:", mergedUrl);
+        // Retrieve merged output file
+        console.log("Step 5: Retrieving merged output file...");
+        const output = ffmpeg.FS('readFile', 'output.mp4');
+        const mergedBlob = new Blob([output.buffer], { type: 'video/mp4' });
+        const mergedUrl = URL.createObjectURL(mergedBlob);
 
-    // Save merged video URL to sessionStorage
-    sessionStorage.setItem('mergedVideo', mergedUrl);
+        console.log("Step 6: Merged video URL created:", mergedUrl);
 
-    // Redirect to the finished page
-    console.log("Step 7: Redirecting to finished.html...");
-    window.location.href = "./finished.html";
-  } catch (error) {
-    console.error("Error during merge process:", error);
-    alert("An error occurred while processing the video.");
-  }
+        // Save merged video URL to sessionStorage
+        sessionStorage.setItem('mergedVideo', mergedUrl);
+
+        // Redirect to the finished page
+        console.log("Step 7: Redirecting to finished.html...");
+        window.location.href = "./finished.html";
+    } catch (error) {
+        console.error("Error during merge process:", error);
+        alert("An error occurred while processing the video.");
+    }
 }
 
 // Retrieve stored video and tone data
